@@ -1,8 +1,10 @@
 from datetime import datetime
-import sys
+import sys, os
+
+leêr = os.getcwd()+"\\dagboek.txt"
 
 def lees_die_lêer():
-    with open("/Users/User/Dropbox/Python/SANDBOX/dagboek/dagboek.txt", "r") as gestoorde_data:
+    with open(leêr, "r") as gestoorde_data:
         gestoorde_lyne = gestoorde_data.readlines()
     return gestoorde_lyne
 
@@ -12,7 +14,7 @@ class MyDag():
     teller = 0
     input_str = "[(>)  gestoor(-3)\t(<)  opgeneem\n (/)  alles\t\t(**) verwyder \n (++) stoor]\n[Gedoen : > "
 ## maak seker leer bestaan
-    with open("/Users/User/Dropbox/Python/SANDBOX/dagboek/dagboek.txt", "a") as data_lêer:
+    with open(leêr, "a") as data_lêer:
         data_lêer.write("")
 ## en lees die leer
     lines = lees_die_lêer()
@@ -72,7 +74,7 @@ class MyDag():
 
     def laaste_nom(self):
         lyne = lees_die_lêer()
-        if lyne == "":
+        if lyne == "" or lyne == []:
             MyDag.laaste_nommer = 0
         else:
             MyDag.laaste_nommer = int(str(lyne[-1].split(", ")[1]))
@@ -89,7 +91,7 @@ class MyDag():
     def verwyder_laaste(self):
         if len(MyDag.alle_werk) < 1:
             data = lees_die_lêer()[:-1]
-            with open("/Users/User/Dropbox/Python/SANDBOX/dagboek/dagboek.txt", "w", encoding="UTF-8") as rw_data:
+            with open(leêr, "w", encoding="UTF-8") as rw_data:
                 for item in data:
                     rw_data.write(item)
             self.laaste_nom()
@@ -99,7 +101,7 @@ class MyDag():
         return True
                 
     def skryf_items(self):
-        with open("/Users/User/Dropbox/Python/SANDBOX/dagboek/dagboek.txt", "a", encoding="UTF-8") as leer1:#,\
+        with open(leêr, "a", encoding="UTF-8") as leer1:#,\
             for item in MyDag.alle_werk:
                 leer1.write(f"[{item[0]}, {item[1]}, {item[2]}]\n")
         MyDag.alle_werk = []
@@ -117,4 +119,6 @@ class MyDag():
     def __str__(self):
         return f"{self.datum}  werk: {self.werk}  no: {int(MyDag.laaste_nommer)+MyDag.teller}"
 
-my_toep = MyDag()#werk=input("[ Gedoen : > "))
+if __name__ == "__main__":
+    MyDag()
+
