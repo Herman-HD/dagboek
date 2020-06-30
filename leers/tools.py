@@ -1,5 +1,5 @@
 import os
-class leer_tools:
+class l_tools:
 
     def __init__(self, leer_naam):
         self.leer = os.getcwd()+"\\"+leer_naam
